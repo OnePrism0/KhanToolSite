@@ -30,15 +30,11 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: #000;
     color: var(--text);
     min-height: 100vh;
     width: 100%;
     line-height: 1.6;
-    background-image: url('/KhanToolSite/media/background.gif');
-    background-position: top center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: #000 url('/KhanToolSite/media/background.gif') top center/cover no-repeat;
     position: relative;
     overflow-x: hidden;
 }
@@ -49,10 +45,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-image: url('/KhanToolSite/media/background.gif');
-    background-position: top center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background: url('/KhanToolSite/media/background.gif') top center/cover no-repeat;
     z-index: -2;
 }
 
@@ -69,7 +62,7 @@ body::before {
 
 @media (max-width: 1095px) {
     body {
-        background-image: none !important;
+        background: #000 !important;
     }
     .fixed-background {
         display: none;

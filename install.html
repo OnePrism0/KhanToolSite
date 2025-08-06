@@ -4,25 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KhanTool - Instalar</title>
-    <link rel="stylesheet" href="/KhanToolSite/media/login_khan.css">
+    <link rel="stylesheet" href="media/login_khan.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .fixed-background {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background-image: url('/KhanToolSite/media/background.gif');
-            background-position: top center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: -2;
-        }
-        body {
-            background-image: url('/KhanToolSite/media/background.gif');
-        }
+        * {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;-webkit-touch-callout: none;-webkit-tap-highlight-color: transparent;}
+        body {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+        .install-container {padding: 4rem 2rem;min-height: 100vh;max-width: 1200px;margin: 0 auto;position: relative;z-index: 1;}
+        .platform-selector {text-align: center;}
+        .bookmarklet-section {background: var(--surface);padding: 2rem;border-radius: 16px;border: 1px solid var(--border);margin-bottom: 3rem;position: relative;overflow: hidden;}
+        .bookmarklet-section::before {content: '';position: absolute;top: 0;left: -100%;width: 100%;height: 100%;background: linear-gradient(90deg, transparent, rgba(59,130,246,0.08), transparent);transition: left 0.5s ease;}
+        .bookmarklet-section:hover::before {left: 100%;}
+        .bookmarklet-title {font-family: 'CustomFont';font-size: 2rem;margin-bottom: 1rem;color: var(--text);text-align: center;}
+        .bookmarklet-description {color: var(--text-secondary);margin-bottom: 2rem;font-size: 1rem;line-height: 1.6;text-align: center;max-width: 600px;margin-left: auto;margin-right: auto;}
+        .bookmarklet-code {background: #1a1a1a;padding: 1rem;border-radius: 8px;font-family: 'JetBrains Mono', monospace;font-size: 0.85rem;word-break: break-all;margin: 1.5rem 0;border: 1px solid var(--border);color: #00ff88;max-height: 100px;overflow-y: auto;user-select: text !important;-webkit-user-select: text !important;-moz-user-select: text !important;}
+        .bookmarklet-buttons {display: flex;gap: 1rem;justify-content: center;flex-wrap: wrap;margin-top: 1.5rem;}
+        .bookmark-button {display: inline-flex;align-items: center;gap: 0.5rem;background: linear-gradient(135deg, var(--primary), var(--primary-hover));color: white;padding: 0.75rem 1.5rem;border-radius: 25px;text-decoration: none;font-weight: 500;transition: all 0.3s ease;cursor: pointer;border: none;position: relative;z-index: 1;}
+        .bookmark-button:hover {transform: scale(1.05);box-shadow: 0 5px 20px rgba(59,130,246,0.4);}
+        .copy-button {background: rgba(59,130,246,0.2);border: 1px solid var(--primary);}
+        .platform-options {display: grid;grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));gap: 2rem;margin: 3rem 0;}
+        .platform-card {background: var(--surface);padding: 2rem;border-radius: 16px;border: 1px solid var(--border);transition: all 0.3s ease;cursor: pointer;position: relative;overflow: hidden;}
+        .platform-card::before {content: '';position: absolute;top: 0;left: -100%;width: 100%;height: 100%;background: linear-gradient(90deg, transparent, rgba(59,130,246,0.08), transparent);transition: left 0.5s ease;}
+        .platform-card:hover {transform: translateY(-8px);box-shadow: 0 15px 40px rgba(59,130,246,0.15);border-color: rgba(59,130,246,0.3);}
+        .platform-card:hover::before {left: 100%;}
+        .platform-icon {width: 100px;height: 100px;margin: 0 auto 1.5rem;background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(37,99,235,0.1));border-radius: 50%;display: flex;align-items: center;justify-content: center;position: relative;z-index: 1;transition: all 0.3s ease;}
+        .platform-card:hover .platform-icon {transform: scale(1.05);background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.15));}
+        .platform-icon svg {width: 50px;height: 50px;stroke: #3b82f6;stroke-width: 2;}
+        .platform-title {font-family: 'CustomFont';font-size: 1.5rem;margin-bottom: 0.5rem;color: var(--text);}
+        .platform-description {color: var(--text-secondary);margin-bottom: 1.5rem;font-size: 0.95rem;line-height: 1.5;}
+        .tutorial-link {display: inline-flex;align-items: center;gap: 0.5rem;background: linear-gradient(135deg, var(--primary), var(--primary-hover));color: white;padding: 0.75rem 1.5rem;border-radius: 25px;text-decoration: none;font-weight: 500;transition: all 0.3s ease;position: relative;z-index: 1;}
+        .tutorial-link:hover {transform: scale(1.05);box-shadow: 0 5px 20px rgba(59,130,246,0.4);}
+        .tutorial-icon {width: 20px;height: 20px;}
+        .help-section {margin-top: 4rem;padding: 2rem;background: var(--surface);border-radius: 16px;border: 1px solid var(--border);transition: all 0.3s ease;}
+        .help-section:hover {border-color: rgba(59,130,246,0.2);}
+        .help-section h3 {font-family: 'CustomFont';margin-bottom: 1rem;color: var(--text);}
+        .help-section p {color: var(--text-secondary);margin-bottom: 1.5rem;line-height: 1.6;}
+        .discord-link {background: linear-gradient(135deg, #5865f2, #4752c4);color: white;padding: 0.75rem 1.5rem;border-radius: 25px;text-decoration: none;font-weight: 500;display: inline-flex;align-items: center;gap: 0.5rem;transition: all 0.3s ease;}
+        .discord-link:hover {transform: scale(1.05);box-shadow:0 5px 20px rgba(88,101,242,0.4);}
+        .step-list {text-align: left;margin: 1rem 0;}
+        .step-list li {margin: 0.5rem 0;color: var(--text-secondary);}
+        .step-list strong {color: var(--primary);}
+        .section-divider {height: 1px;background: linear-gradient(90deg,transparent,var(--border),transparent);margin:4rem 0;}
     </style>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">

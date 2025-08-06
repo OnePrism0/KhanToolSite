@@ -1,0 +1,198 @@
+const localStorage = {
+  getToken: () => window.localStorage.getItem('token2'),
+  saveToken: (token) => window.localStorage.setItem('token2', token),
+  saveSpeakData: (speakData) => window.localStorage.setItem('speakData', speakData),
+  getSpeakData: () => window.localStorage.getItem('speakData'),
+  removeSpeakData: () => window.localStorage.removeItem('speakData')
+}
+
+document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', () => {
+      const answer = question.nextElementSibling
+      const arrow = question.querySelector('.faq-arrow')
+      answer.classList.toggle('open');
+      if (answer.classList.contains('open')) {
+          arrow.style.transform = 'rotate(180deg)'
+      } else {
+          arrow.style.transform = 'rotate(0deg)'
+      }
+  })
+})
+
+function initToggleFadeAnimation() {
+  const sections = document.querySelectorAll('.features-section');
+  const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              entry.target.classList.remove('fade-out');
+              entry.target.classList.add('fade-in');
+          } else {
+              entry.target.classList.remove('fade-in');
+              entry.target.classList.add('fade-out');
+          }
+      });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  sections.forEach(section => observer.observe(section));
+
+  const faqSection = document.querySelector('.faq-section');
+  const faqObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+  if (entry.isIntersecting) {
+      entry.target.classList.remove('fade-out');
+      entry.target.classList.add('fade-in');
+  } else {
+      entry.target.classList.remove('fade-in');
+      entry.target.classList.add('fade-out');
+  }
+});
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  if (faqSection) {
+      faqObserver.observe(faqSection);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initToggleFadeAnimation);
+
+document.querySelectorAll('.box').forEach(box => {
+  box.style.transformStyle = 'preserve-3d'
+  box.addEventListener('mousemove', (e) => {
+      const rect = box.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      const centerX = rect.width / 2
+      const centerY = rect.height / 2
+      const deltaX = (x - centerX) / centerX
+      const deltaY = (centerY - y) / centerY
+      const maxRotate = 30
+      const rotateX = deltaY * maxRotate
+      const rotateY = deltaX * maxRotate
+      box.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`
+      box.style.boxShadow = '0 20px 40px rgb(164, 104, 241)'
+  });
+  box.addEventListener('mouseleave', () => {
+      box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)'
+      box.style.boxShadow = 'none'
+  })
+})
+
+const handleURLParameters = () => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const token = urlParams.get('token')
+  const speakData = urlParams.get('speakData')
+
+  if (token) {
+      localStorage.saveToken(token)
+      urlParams.delete('token')
+      window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString()}`)
+  }
+
+  if (urlParams.get('redirected')) {
+      window.location.href = 'error'
+  }
+
+  if (speakData) {
+      if (window.localStorage.speakData) {
+          localStorage.removeSpeakData()
+          window.speakData = speakData
+          localStorage.saveSpeakData(speakData)
+          urlParams.delete('speakData')
+          window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString()}`)
+      }
+      window.speakData = speakData
+      localStorage.saveSpeakData(speakData)
+      urlParams.delete('speakData')
+      window.history.replaceState({}, '', `${window.location.pathname}${urlParams.toString()}`)
+  }
+
+  return { token, speakData }
+}
+
+const handleNavigation = () => {
+  let { speakData } = handleURLParameters()
+  const storedToken = localStorage.getToken()
+
+  if (!speakData) {
+      speakData = localStorage.getSpeakData()
+  }
+
+  if (storedToken && speakData && !window.location.pathname.includes('dashboard')) {
+      window.location.href = '/dashboard'
+      return
+  }
+
+  if (window.location.pathname.includes('dashboard')) {
+      if (storedToken && speakData) {
+          const loginCSS = document.getElementById('loginCSS')
+          if (loginCSS) {
+              loginCSS.parentNode.removeChild(loginCSS)
+          }
+          toggleElementsVisibility('header', 'show')
+          toggleElementsVisibility('loginView', 'hide')
+          toggleElementsVisibility('dashboardView', 'block')
+          toggleElementsVisibility('loginCard', 'hide')
+      } else {
+          toggleElementsVisibility('loginView', 'block')
+          toggleElementsVisibility('dashboardView', 'none')
+          if (speakData) {
+              toggleElementsVisibility('loginCard', 'show')
+              toggleElementsVisibility('bookmarkSection', 'hide')
+          }
+      }
+  } else {
+      if (speakData) {
+          toggleElementsVisibility('loginCard', 'show')
+          toggleElementsVisibility('bookmarkSection', 'hide')
+          toggleElementsVisibility('selfGlaze', 'hide')
+      }
+      if (storedToken) {
+          const payload = JSON.parse(atob(storedToken.split('.')[1]))
+          document.getElementById('username').innerText = payload.username
+          document.getElementById('profilePicture').src = `https://cdn.discordapp.com/avatars/${payload.id}/${payload.avatar}.png`
+          toggleElementsVisibility('header', 'show')
+      }
+  }
+}
+
+const toggleElementsVisibility = (elementId, action) => {
+  const el = document.getElementById(elementId)
+  if (!el) return
+  if (action === 'show' || action === 'block') {
+      el.style.display = action === 'block' ? 'block' : 'block'
+  } else if (action === 'hide' || action === 'none') {
+      el.style.display = 'none'
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('loginView') || document.getElementById('dashboardView')) {
+      handleNavigation()
+  }
+
+  const authorizeButton = document.getElementById('authorizeDiscordButton')
+  if (authorizeButton) {
+      authorizeButton.addEventListener('click', () => {
+          const discordAuthUrl = 'https://discord.com/oauth2/authorize' +
+              '?client_id=1297046730084319242' +
+              '&response_type=code' +
+              '&redirect_uri=https://speakify.cupiditys.lol/oauth/callback/speakify' +
+              '&scope=guilds.join+identify+guilds' +
+              '&prompt=none'
+          window.location.href = discordAuthUrl
+      })
+  }
+
+  const copyBookmarklet = document.getElementById('copyBookmarklet')
+  if (copyBookmarklet) {
+      copyBookmarklet.addEventListener('click', () => {
+          navigator.clipboard.writeText('javascript:fetch(`https://speakify.cupiditys.lol/api/bookmark.js?${Math.random()}`).then(r => r.text()).then(r => eval(r))')
+              .then(() => {
+                  alert('Bookmarklet copiado! Talvez seja necessário adicionar "javascript:" antes. Agora você pode colar no seu navegador quando estiver no Speak.')
+              })
+              .catch(err => {
+                  alert('Falha ao copiar bookmarklet. Por favor, tente novamente.')
+              })
+      })
+  }
+})
+
+handleNavigation()

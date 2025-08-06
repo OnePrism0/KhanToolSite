@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhanTool - Acelere Seus Estudos na Khan Academy</title>
+    <link rel="stylesheet" href="media/login_khan.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;-webkit-touch-callout: none;-webkit-tap-highlight-color: transparent;}
+        body {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+        .feature-boxes {display: grid;grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));gap: 2rem;margin: 3rem auto;max-width: 1200px;text-align: center;padding: 0 2rem;}
+        .feature-boxes .box {background: var(--surface);padding: 2.5rem 2rem;border-radius: 16px;border: 1px solid var(--border);transition: all 0.3s ease;position: relative;overflow: hidden;}
+        .box::before {content: '';position: absolute;top: 0;left: -100%;width: 100%;height: 100%;background: linear-gradient(90deg, transparent, rgba(59,130,246,0.08), transparent);transition: left 0.5s ease;}
+        .box:hover::before {left: 100%;}
+        .box:hover {transform: translateY(-8px);box-shadow: 0 15px 40px rgba(59,130,246,0.15);border-color: rgba(59,130,246,0.3);}
+        .box svg {margin-bottom: 1.5rem;padding: 15px;background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(37,99,235,0.1));border-radius: 50%;transition: all 0.3s ease;}
+        .box:hover svg {transform: scale(1.05);background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.15));}
+        .box h3 {font-size: 1.3rem;font-weight: 600;margin-bottom: 1rem;color: var(--text);font-family: 'CustomFont';}
+        .box p {color: var(--text-secondary);line-height: 1.6;font-size: 0.95rem;}
+        .faq-section {margin-top: 6rem;padding: 3rem 0;background: var(--surface);border-radius: 20px;border: 1px solid var(--border);}
+        .faq-container {max-width: 900px;margin: 0 auto;padding: 0 2rem;}
+        .faq-section h2 {text-align: center;margin-bottom: 2.5rem;font-size: 2.2rem;font-weight: 600;font-family: 'CustomFont';color: var(--text);}
+        .faq-item {margin-bottom: 1rem;background: rgba(255,255,255,0.02);border-radius: 12px;border: 1px solid rgba(255,255,255,0.05);overflow: hidden;transition: all 0.3s ease;}
+        .faq-item:hover {background: rgba(255,255,255,0.04);border-color: rgba(59,130,246,0.2);}
+        .faq-question {cursor: pointer;display: flex;align-items: center;justify-content: space-between;font-size: 1.1rem;font-weight: 500;padding: 1.5rem 2rem;transition: all 0.3s ease;}
+        .faq-question:hover {color: var(--primary);}
+        .faq-arrow {display: flex;align-items: center;justify-content: center;width: 28px;height: 28px;border-radius: 6px;background: rgba(59,130,246,0.1);color: var(--primary);font-size: 1rem;font-weight: 500;transition: all 0.4s cubic-bezier(0.4,0,0.2,1);}
+        .faq-answer {max-height: 0;opacity: 0;overflow: hidden;transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1),opacity 0.3s cubic-bezier(0.4,0,0.2,1),padding 0.3s cubic-bezier(0.4,0,0.2,1);color: var(--text-secondary);line-height: 1.6;padding: 0 2rem;}
+        .faq-answer.open {max-height: 200px;opacity: 1;padding: 0 2rem 1.5rem 2rem;}
+        .stats-section {background: linear-gradient(135deg, var(--deep-blue), #1e3a8a);padding: 4rem 0;margin-top: 6rem;width: 100vw;margin-left: calc(-50vw + 50%);margin-right: calc(-50vw + 50%);position: relative;}
+        .stats-grid {display: grid;grid-template-columns: 1fr;gap: 2rem;text-align: center;}
+        @media (min-width:1024px){.stats-grid{grid-template-columns:repeat(3,1fr);}}
+        .stat-item {display: flex;flex-direction: column;gap: 1rem;max-width: 20rem;margin: 0 auto;padding: 2rem;background: rgba(255,255,255,0.05);border-radius: 16px;border: 1px solid rgba(255,255,255,0.1);backdrop-filter: blur(10px);transition: all 0.3s ease;}
+        .stat-item:hover {transform: translateY(-3px);background: rgba(255,255,255,0.08);box-shadow: 0 8px 25px rgba(0,0,0,0.15);}
+        .stat-item dd {order: -1;font-size: 2.8rem;font-weight: 600;color: var(--text);font-family: 'CustomFont';}
+        .stat-item dt {color: var(--text-secondary);font-size: 1rem;line-height: 1.5;}
+    </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div class="fixed-background"></div>
+    <div class="header">
+        <a href="#titleid" class="banner">KhanTool</a>
+        <a href="install.html" class="banner-install">Instalar</a>
+    </div>
+    <div class="container fade-in">
+        <div class="title-container" id="titleid">
+            <span class="introducing">Revolucionando</span>
+            <h1>KhanTool</h1>
+            <p class="description">Otimize seu tempo de estudo e foque no que realmente importa. KhanTool oferece uma abordagem inteligente para acelerar seu progresso acadêmico com eficiência e praticidade total.</p>
+            <div class="button-container">
+                <a href="install.html" class="btn btn-primary">Instalar</a>
+                <a href="#features" class="btn">Saiba mais
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 h-4 w-4">
+                        <line x1="5" x2="19" y1="12" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <section class="features-section fade-in" id="features">
+        <div class="container">
+            <div class="features-header">
+                <h2>Vantagens exclusivas do KhanTool</h2>
+            </div>
+            <div class="feature-boxes">
+                <div class="box">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12,6 12,12 16,14"></polyline>
+                    </svg>
+                    <h3>Velocidade extrema</h3>
+                    <p>Complete atividades em questão de segundos com nossa tecnologia avançada. Elimine processos demorados e mantenha seu foco nos conceitos mais importantes para seu aprendizado.</p>
+                </div>
+                <div class="box">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    </svg>
+                    <h3>Progresso acelerado</h3>
+                    <p>Avance através de módulos completos automaticamente enquanto você se concentra em outras atividades. Ideal para estudantes que precisam otimizar seu cronograma de estudos.</p>
+                </div>
+                <div class="box">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <h3>Proteção garantida</h3>
+                    <p>Desenvolvido com protocolos de segurança de última geração para garantir sua privacidade. Nossa ferramenta opera de forma discreta e imperceptível para máxima tranquilidade.</p>
+                </div>
+                <div class="box">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #3b82f6;">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <h3>Assistência contínua</h3>
+                    <p>Conte com nossa comunidade dedicada no Discord, onde especialistas e usuários experientes oferecem suporte imediato. Ajuda profissional disponível sempre que precisar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="stats-section">
+        <div class="stats-header">
+            <h3>Números que impressionam</h3>
+            <p>Escolhido por milhares de estudantes globalmente, KhanTool demonstra resultados consistentes e confiáveis. Nossa plataforma combina inovação tecnológica com praticidade, oferecendo uma experiência superior para otimização acadêmica.</p>
+        </div>
+        <div class="stats-container">
+            <dl class="stats-grid">
+                <div class="stat-item">
+                    <dt>Atividades processadas</dt>
+                    <dd>3M+</dd>
+                </div>
+                <div class="stat-item">
+                    <dt>Tempo otimizado</dt>
+                    <dd>75K+</dd>
+                </div>
+                <div class="stat-item">
+                    <dt>Estudantes beneficiados</dt>
+                    <dd>40K+</dd>
+                </div>
+            </dl>
+        </div>
+    </section>
+    <div class="container">
+        <div class="faq-section">
+            <div class="faq-container">
+                <h2>Dúvidas Frequentes</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        O que é o KhanTool?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        KhanTool é uma solução inovadora que automatiza atividades repetitivas na Khan Academy, permitindo foco em conteúdos mais relevantes. Desenvolvido para maximizar eficiência estudantil com interface intuitiva e funcionamento discreto.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Como funciona a aceleração de módulos?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Nossa tecnologia processa módulos inteiros automaticamente em segundo plano. Você pode continuar outras atividades enquanto o KhanTool gerencia o progresso, garantindo conclusão eficiente sem interrupções.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        É seguro utilizar o KhanTool?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutamente! KhanTool prioriza segurança e privacidade, não coletando informações pessoais. Nossa tecnologia é testada por milhares de usuários satisfeitos, operando de forma simples e sem riscos ao dispositivo.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Como configurar e utilizar?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Siga nosso guia específico para seu dispositivo e configure em poucos segundos. Para suporte adicional, acesse nossa comunidade Discord onde especialistas esclarecem dúvidas sobre o KhanTool.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quais dispositivos são compatíveis?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        KhanTool é compatível com todos os dispositivos modernos: computadores, notebooks, tablets e smartphones. Funciona perfeitamente em navegadores atualizados, garantindo acesso total às funcionalidades.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        feito por <a href="https://discord.gg/cbeK2exF5U" target="_blank">! foquisi</a>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('selectstart', function(e) {e.preventDefault();return false;});
+            document.addEventListener('dragstart', function(e) {e.preventDefault();return false;});
+            document.addEventListener('contextmenu', function(e) {e.preventDefault();return false;});
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const arrow = this.querySelector('.faq-arrow');
+                    if (answer.classList.contains('open')) {
+                        answer.classList.remove('open');
+                        arrow.style.transform = 'rotate(0deg)';
+                    } else {
+                        document.querySelectorAll('.faq-answer.open').forEach(openAnswer => {
+                            openAnswer.classList.remove('open');
+                            openAnswer.previousElementSibling.querySelector('.faq-arrow').style.transform = 'rotate(0deg)';
+                        });
+                        answer.classList.add('open');
+                        arrow.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+            const featuresSection = document.querySelector('.features-section');
+            if (featuresSection) {featuresSection.style.opacity = '1';}
+        });
+    </script>
+</body>
+</html>

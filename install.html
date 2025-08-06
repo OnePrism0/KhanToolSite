@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhanTool - Instalar</title>
+    <link rel="stylesheet" href="media/login_khan.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;-webkit-touch-callout: none;-webkit-tap-highlight-color: transparent;}
+        body {-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+        .install-container {padding: 4rem 2rem;min-height: 100vh;max-width: 1200px;margin: 0 auto;position: relative;z-index: 1;}
+        .platform-selector {text-align: center;}
+        .bookmarklet-section {background: var(--surface);padding: 2rem;border-radius: 16px;border: 1px solid var(--border);margin-bottom: 3rem;position: relative;overflow: hidden;}
+        .bookmarklet-section::before {content: '';position: absolute;top: 0;left: -100%;width: 100%;height: 100%;background: linear-gradient(90deg, transparent, rgba(59,130,246,0.08), transparent);transition: left 0.5s ease;}
+        .bookmarklet-section:hover::before {left: 100%;}
+        .bookmarklet-title {font-family: 'CustomFont';font-size: 2rem;margin-bottom: 1rem;color: var(--text);text-align: center;}
+        .bookmarklet-description {color: var(--text-secondary);margin-bottom: 2rem;font-size: 1rem;line-height: 1.6;text-align: center;max-width: 600px;margin-left: auto;margin-right: auto;}
+        .bookmarklet-code {background: #1a1a1a;padding: 1rem;border-radius: 8px;font-family: 'JetBrains Mono', monospace;font-size: 0.85rem;word-break: break-all;margin: 1.5rem 0;border: 1px solid var(--border);color: #00ff88;max-height: 100px;overflow-y: auto;user-select: text !important;-webkit-user-select: text !important;-moz-user-select: text !important;}
+        .bookmarklet-buttons {display: flex;gap: 1rem;justify-content: center;flex-wrap: wrap;margin-top: 1.5rem;}
+        .bookmark-button {display: inline-flex;align-items: center;gap: 0.5rem;background: linear-gradient(135deg, var(--primary), var(--primary-hover));color: white;padding: 0.75rem 1.5rem;border-radius: 25px;text-decoration: none;font-weight: 500;transition: all 0.3s ease;cursor: pointer;border: none;position: relative;z-index: 1;}
+        .bookmark-button:hover {transform: scale(1.05);box-shadow: 0 5px 20px rgba(59,130,246,0.4);}
+        .copy-button {background: rgba(59,130,246,0.2);border: 1px solid var(--primary);}
+        .platform-options {display: grid;grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));gap: 2rem;margin: 3rem 0;}
+        .platform-card {background: var(--surface);padding: 2rem;border-radius: 16px;border: 1px solid var(--border);transition: all 0.3s ease;cursor: pointer;position: relative;overflow: hidden;}
+        .platform-card::before {content: '';position: absolute;top: 0;left: -100%;width: 100%;height: 100%;background: linear-gradient(90deg, transparent, rgba(59,130,246,0.08), transparent);transition: left 0.5s ease;}
+        .platform-card:hover {transform: translateY(-8px);box-shadow: 0 15px 40px rgba(59,130,246,0.15);border-color: rgba(59,130,246,0.3);}
+        .platform-card:hover::before {left: 100%;}
+        .platform-icon {width: 100px;height: 100px;margin: 0 auto 1.5rem;background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(37,99,235,0.1));border-radius: 50%;display: flex;align-items: center;justify-content: center;position: relative;z-index: 1;transition: all 0.3s ease;}
+        .platform-card:hover .platform-icon {transform: scale(1.05);background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(37,99,235,0.15));}
+        .platform-icon svg {width: 50px;height: 50px;stroke: #3b82f6;stroke-width: 2;}
+        .platform-title {font-family: 'CustomFont';font-size: 1.5rem;margin-bottom: 0.5rem;color: var(--text);}
+        .platform-description {color: var(--text-secondary);margin-bottom: 1.5rem;font-size: 0.95rem;line-height: 1.5;}
+        .tutorial-link {display: inline-flex;align-items: center;gap: 0.5rem;background: linear-gradient(135deg, var(--primary), var(--primary-hover));color: white;padding: 0.75rem 1.5rem;border-radius: 25px;text-decoration: none;font-weight: 500;transition: all 0.3s ease;position: relative;z-index: 1;}
+        .tutorial-link:hover {transform: scale(1.05);box-shadow: 0 5px 20px rgba(59,130,246,0.4);}
+        .tutorial-icon {width: 20px;height: 20px;}
+        .help-section {margin-top: 4rem;padding: 2rem;background: var(--surface);border-radius: 16px;border: 1px solid var(--border);transition: all 0.3s ease;}
+        .help-section:hover {border-color: rgba(59,130,246,0.2);}
+        .help-section h3 {font-family: 'CustomFont';margin-bottom: 1rem;color: var(--text);}
+        .help-section p {color: var(--text-secondary);margin-bottom: 1.5rem;line-height: 1.6;}
+        .discord-link {background: linear-gradient(135deg, #5865f2, #4752c4);color: white;padding: 0.75rem 1.5rem;border-radius: 25px;text-decoration: none;font-weight: 500;display: inline-flex;align-items: center;gap: 0.5rem;transition: all 0.3s ease;}
+        .discord-link:hover {transform: scale(1.05);box-shadow:0 5px 20px rgba(88,101,242,0.4);}
+        .step-list {text-align: left;margin: 1rem 0;}
+        .step-list li {margin: 0.5rem 0;color: var(--text-secondary);}
+        .step-list strong {color: var(--primary);}
+        .section-divider {height: 1px;background: linear-gradient(90deg,transparent,var(--border),transparent);margin:4rem 0;}
+    </style>
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+    <div class="fixed-background"></div>
+    <div class="header">
+        <a href="khantoolmenu.html" class="banner">KhanTool</a>
+    </div>
+    <div class="install-container">
+        <div class="platform-selector" id="platformSelector">
+            <h1 style="font-family: 'CustomFont'; font-size: 3rem; margin-bottom: 1rem;">Instalar KhanTool</h1>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem;">Método mais rápido e recomendado</p>
+            <div class="bookmarklet-section">
+                <h2 class="bookmarklet-title">🔖 Bookmarklet</h2>
+                <p class="bookmarklet-description">Salve como favorito e use sempre que precisar. Funciona em todos os dispositivos e navegadores de forma rápida e segura.</p>
+                <div class="bookmarklet-code" id="bookmarkletCode">javascript:(function(){var s=document.createElement('script');s.src='https://oneprism0.github.io/KhanTool_Site/js/KhanTool.js';document.head.appendChild(s);})();</div>
+                <div class="bookmarklet-buttons">
+                    <button class="bookmark-button copy-button" onclick="copyBookmarklet()">
+                        <i class="fas fa-copy"></i> Copiar Código
+                    </button>
+                    <a href="javascript:(function(){var s=document.createElement('script');s.src='https://oneprism0.github.io/KhanTool_Site/js/KhanTool.js';document.head.appendChild(s);})();" class="bookmark-button">
+                        <i class="fas fa-bookmark"></i> Arrastar para Favoritos
+                    </a>
+                </div>
+                <div class="step-list">
+                    <h4 style="margin: 1.5rem 0 0.5rem 0; color: var(--primary); text-align: center;">Como usar:</h4>
+                    <ol style="padding-left: 1.5rem; max-width: 600px; margin: 0 auto;">
+                        <li><strong>Método 1:</strong> Arraste o botão "Arrastar para Favoritos" para sua barra de favoritos</li>
+                        <li><strong>Método 2:</strong> Copie o código, crie um novo favorito e cole como URL</li>
+                        <li>Acesse a Khan Academy e clique no favorito criado</li>
+                        <li>O KhanTool será carregado automaticamente!</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="section-divider"></div>
+            <h2 style="font-family: 'CustomFont'; font-size: 2rem; margin-bottom: 2rem;">📱 Tutoriais por Plataforma</h2>
+            <div class="platform-options">
+                <div class="platform-card">
+                    <div class="platform-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 class="platform-title">PC/Desktop</h3>
+                    <p class="platform-description">Tutorial completo para Windows, Mac e Linux. Aprenda a instalar o KhanTool no seu computador em poucos minutos.</p>
+                    <a href="#" class="tutorial-link">
+                        <svg class="tutorial-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5,3 19,12 5,21"></polygon>
+                        </svg>
+                        Assistir Tutorial
+                    </a>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <path d="M12 6h.01M12 18h.01"/>
+                        </svg>
+                    </div>
+                    <h3 class="platform-title">Android</h3>
+                    <p class="platform-description">Passo a passo detalhado para dispositivos Android. Configure o KhanTool no seu smartphone ou tablet Android facilmente.</p>
+                    <a href="#" class="tutorial-link">
+                        <svg class="tutorial-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5,3 19,12 5,21"></polygon>
+                        </svg>
+                        Assistir Tutorial
+                    </a>
+                </div>
+                <div class="platform-card">
+                    <div class="platform-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="platform-title">iOS</h3>
+                    <p class="platform-description">Guia especializado para iPhone e iPad. Descubra como usar o KhanTool no iOS com todas as dicas e truques necessários.</p>
+                    <a href="#" class="tutorial-link">
+                        <svg class="tutorial-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5,3 19,12 5,21"></polygon>
+                        </svg>
+                        Assistir Tutorial
+                    </a>
+                </div>
+            </div>
+            <div class="help-section">
+                <h3>Precisa de ajuda?</h3>
+                <p>Se tiver dúvidas durante a instalação ou uso do KhanTool, nossa comunidade está pronta para ajudar.</p>
+                <a href="https://discord.gg/PYNQfcDvZy" class="discord-link">
+                    <i class="fa-brands fa-discord"></i>
+                    Entrar no Discord
+                </a>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        feito por <a href="https://discord.gg/cbeK2exF5U" target="_blank">! foquisi</a>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('selectstart', function(e) {if (!e.target.closest('.bookmarklet-code')) {e.preventDefault();return false;}});
+            document.addEventListener('dragstart', function(e) {e.preventDefault();return false;});
+            document.addEventListener('contextmenu', function(e) {e.preventDefault();return false;});
+        });
+        function copyBookmarklet() {copyToClipboard('bookmarkletCode');}
+        function copyToClipboard(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const text = codeElement.textContent;
+            navigator.clipboard.writeText(text).then(function() {
+                showToast('Código copiado para a área de transferência!');
+            }).catch(function() {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('Código copiado!');
+            });
+        }
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = "position: fixed;top: 20px;right: 20px;background: var(--primary);color: white;padding: 1rem 1.5rem;border-radius: 8px;z-index: 9999;box-shadow: 0 4px 12px rgba(0,0,0,0.15);font-weight: 500;opacity: 0;transform: translateX(100px);transition: all 0.3s ease;";
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {toast.style.opacity = '1';toast.style.transform = 'translateX(0)';}, 10);
+            setTimeout(() => {toast.style.opacity = '0';toast.style.transform = 'translateX(100px)';setTimeout(() => document.body.removeChild(toast), 300);}, 3000);
+        }
+    </script>
+</body>
+</html>

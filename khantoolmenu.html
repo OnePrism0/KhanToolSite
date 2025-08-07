@@ -169,8 +169,8 @@
                     }
                 });
             });
-            const featuresSection = document.querySelector('.features-section');
-            if (featuresSection) {featuresSection.style.opacity = '1';}
+            const fadeIns = document.querySelectorAll('.fade-in');
+            fadeIns.forEach(el => { el.style.opacity = 1; });
         });
     </script>
 </body>

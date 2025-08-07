@@ -73,10 +73,10 @@
             <div class="bookmarklet-section">
                 <h2 class="bookmarklet-title">Bookmarklet</h2>
                 <p class="bookmarklet-description">Salve como favorito e use sempre que precisar. Funciona em todos os dispositivos e navegadores de forma rápida e segura.</p>
-                <div class="bookmarklet-code" id="bookmarkletCode">javascript:(function(){var s=document.createElement('script');s.src='https://raw.githubusercontent.com/OnePrism0/KhanToolSite/refs/heads/main/js/KhanTool.js';document.head.appendChild(s);})();</div>
+                <div class="bookmarklet-code" id="bookmarkletCode">javascript:fetch("https://raw.githubusercontent.com/OnePrism0/KhanToolSite/refs/heads/main/js/KhanTool.js").then(t=>t.text()).then(eval);</div>
                 <div class="bookmarklet-buttons">
                     <button class="bookmark-button copy-button" onclick="copyBookmarklet()">Copiar Código</button>
-                    <a href="javascript:(function(){var s=document.createElement('script');s.src='https://raw.githubusercontent.com/OnePrism0/KhanToolSite/refs/heads/main/js/KhanTool.js';document.head.appendChild(s);})();"
+                    <a href='javascript:fetch("https://raw.githubusercontent.com/OnePrism0/KhanToolSite/refs/heads/main/js/KhanTool.js").then(t=>t.text()).then(eval);'
                        class="bookmark-button" id="dragBookmarklet" draggable="true">
                         Arrastar para Favoritos
                     </a>

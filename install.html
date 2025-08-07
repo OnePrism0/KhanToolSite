@@ -24,10 +24,10 @@
                 <div class="bookmarklet-code" id="bookmarkletCode">javascript:(function(){var s=document.createElement('script');s.src='https://oneprism0.github.io/KhanTool_Site/js/KhanTool.js';document.head.appendChild(s);})();</div>
                 <div class="bookmarklet-buttons">
                     <button class="bookmark-button copy-button" onclick="copyBookmarklet()">
-                        <i class="fas fa-copy"></i> Copiar Código
+                        Copiar Código
                     </button>
                     <a href="javascript:(function(){var s=document.createElement('script');s.src='https://oneprism0.github.io/KhanTool_Site/js/KhanTool.js';document.head.appendChild(s);})();" class="bookmark-button">
-                        <i class="fas fa-bookmark"></i> Arrastar para Favoritos
+                        Arrastar para Favoritos
                     </a>
                 </div>
                 <div class="step-list">
@@ -96,7 +96,6 @@
                 <h3>Precisa de ajuda?</h3>
                 <p>Se tiver dúvidas durante a instalação ou uso do KhanTool, nossa comunidade está pronta para ajudar.</p>
                 <a href="https://discord.gg/PYNQfcDvZy" class="discord-link">
-                    <i class="fa-brands fa-discord"></i>
                     Entrar no Discord
                 </a>
             </div>
@@ -110,6 +109,8 @@
             document.addEventListener('selectstart', function(e) {if (!e.target.closest('.bookmarklet-code')) {e.preventDefault();return false;}});
             document.addEventListener('dragstart', function(e) {e.preventDefault();return false;});
             document.addEventListener('contextmenu', function(e) {e.preventDefault();return false;});
+            const fadeIns = document.querySelectorAll('.fade-in');
+            fadeIns.forEach(el => { el.style.opacity = 1; });
         });
         function copyBookmarklet() {copyToClipboard('bookmarkletCode');}
         function copyToClipboard(elementId) {

@@ -45,7 +45,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: url('/KhanToolSite/media/background.gif') top center/cover no-repeat;
+    background: url('media/background.gif') top center/cover no-repeat;
     z-index: -2;
 }
 
@@ -743,3 +743,196 @@ a[href="https://discord.gg/cbeK2exF5U"] {
 .mt-2 { margin-top: 2rem; }
 .mb-2 { margin-bottom: 2rem; }
 
+.install-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem 2rem;
+    min-height: 100vh;
+}
+
+.platform-selector {
+    text-align: center;
+}
+
+.bookmarklet-section {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 1px solid var(--border);
+}
+
+.bookmarklet-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.bookmarklet-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.bookmarklet-code {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-family: monospace;
+    word-break: break-all;
+    border: 1px solid var(--border);
+}
+
+.bookmarklet-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.bookmark-button {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bookmark-button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.platform-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.platform-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.platform-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.2);
+}
+
+.platform-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+}
+
+.platform-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.platform-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.platform-description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.tutorial-link {
+    color: var(--primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tutorial-link:hover {
+    color: var(--primary-hover);
+}
+
+.tutorial-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 3rem 0;
+}
+
+.step-list {
+    text-align: left;
+    max-width: 600px;
+    margin: 1.5rem auto 0;
+}
+
+.step-list ol {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.step-list li {
+    margin-bottom: 0.5rem;
+}
+
+.help-section {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 3rem 0;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.help-section h3 {
+    color: var(--text);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.help-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.discord-link {
+    background: #5865F2;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.discord-link:hover {
+    background: #4752C4;
+    transform: translateY(-2px);
+}

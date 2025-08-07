@@ -106,13 +106,14 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            document.addEventListener('selectstart', function(e) {if (!e.target.closest('.bookmarklet-code')) {e.preventDefault();return false;}});
-            document.addEventListener('dragstart', function(e) {e.preventDefault();return false;});
-            document.addEventListener('contextmenu', function(e) {e.preventDefault();return false;});
-            const fadeIns = document.querySelectorAll('.fade-in');
-            fadeIns.forEach(el => { el.style.opacity = 1; });
+            document.querySelectorAll('.fade-in').forEach(el=>el.style.opacity=1);
+            document.addEventListener('selectstart', function(e){if(!e.target.closest('.bookmarklet-code')){e.preventDefault();return false;}});
+            document.addEventListener('dragstart', e=>{e.preventDefault();return false;});
+            document.addEventListener('contextmenu', e=>{e.preventDefault();return false;});
         });
-        function copyBookmarklet() {copyToClipboard('bookmarkletCode');}
+        function copyBookmarklet() {
+            copyToClipboard('bookmarkletCode');
+        }
         function copyToClipboard(elementId) {
             const codeElement = document.getElementById(elementId);
             const text = codeElement.textContent;
@@ -135,8 +136,8 @@
             toast.style.cssText = "position: fixed;top: 20px;right: 20px;background: var(--primary);color: white;padding: 1rem 1.5rem;border-radius: 8px;z-index: 9999;box-shadow: 0 4px 12px rgba(0,0,0,0.15);font-weight: 500;opacity: 0;transform: translateX(100px);transition: all 0.3s ease;";
             toast.textContent = message;
             document.body.appendChild(toast);
-            setTimeout(() => {toast.style.opacity = '1';toast.style.transform = 'translateX(0)';}, 10);
-            setTimeout(() => {toast.style.opacity = '0';toast.style.transform = 'translateX(100px)';setTimeout(() => document.body.removeChild(toast), 300);}, 3000);
+            setTimeout(()=>{toast.style.opacity='1';toast.style.transform='translateX(0)';},10);
+            setTimeout(()=>{toast.style.opacity='0';toast.style.transform='translateX(100px)';setTimeout(()=>document.body.removeChild(toast),300);},3000);
         }
     </script>
 </body>

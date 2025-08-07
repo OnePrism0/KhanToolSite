@@ -8,8 +8,60 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    .discord-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7em;
+        justify-content: center;
+        font-weight: 500;
+        background: rgba(88,101,242,0.82);
+        color: #fff !important;
+        padding: 0.88em 2em 0.88em 1.3em;
+        border-radius: 9px;
+        font-size: 1.13rem;
+        box-shadow: 0 2px 16px rgba(88,101,242,0.11);
+        border: none;
+        text-decoration: none;
+        transition: background .14s, filter .12s;
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+    }
+    .discord-link img {
+        height: 1.7em;
+        width: 1.7em;
+        min-width: 1.7em;
+        max-width: 1.7em;
+        display: block;
+        flex-shrink: 0;
+        border-radius: 3px;
+        background: none;
+        object-fit: contain;
+        margin: 0;
+    }
+    .discord-link:focus,
+    .discord-link:hover {
+        background: rgba(88,101,242,0.92);
+        color: #fff !important;
+        text-decoration: none;
+    }
+    .platform-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    .platform-icon svg {
+        display: block;
+        margin: 0 auto;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    </style>
 </head>
-<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+<body oncontextmenu="return false" onselectstart="return false">
     <div class="fixed-background"></div>
     <div class="header">
         <a href="khantoolmenu.html" class="banner">KhanTool</a>
@@ -19,14 +71,13 @@
             <h1 style="font-family: 'CustomFont'; font-size: 3rem; margin-bottom: 1rem;">Instalar KhanTool</h1>
             <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem;">Método mais rápido e recomendado</p>
             <div class="bookmarklet-section">
-                <h2 class="bookmarklet-title">🔖 Bookmarklet</h2>
+                <h2 class="bookmarklet-title">Bookmarklet</h2>
                 <p class="bookmarklet-description">Salve como favorito e use sempre que precisar. Funciona em todos os dispositivos e navegadores de forma rápida e segura.</p>
-                <div class="bookmarklet-code" id="bookmarkletCode">javascript:(function(){var s=document.createElement('script');s.src='https://oneprism0.github.io/KhanTool_Site/js/KhanTool.js';document.head.appendChild(s);})();</div>
+                <div class="bookmarklet-code" id="bookmarkletCode">javascript:(function(){var s=document.createElement('script');s.src='https://raw.githubusercontent.com/OnePrism0/KhanToolSite/refs/heads/main/js/KhanTool.js';document.head.appendChild(s);})();</div>
                 <div class="bookmarklet-buttons">
-                    <button class="bookmark-button copy-button" onclick="copyBookmarklet()">
-                        Copiar Código
-                    </button>
-                    <a href="javascript:(function(){var s=document.createElement('script');s.src='https://oneprism0.github.io/KhanTool_Site/js/KhanTool.js';document.head.appendChild(s);})();" class="bookmark-button">
+                    <button class="bookmark-button copy-button" onclick="copyBookmarklet()">Copiar Código</button>
+                    <a href="javascript:(function(){var s=document.createElement('script');s.src='https://raw.githubusercontent.com/OnePrism0/KhanToolSite/refs/heads/main/js/KhanTool.js';document.head.appendChild(s);})();"
+                       class="bookmark-button" id="dragBookmarklet" draggable="true">
                         Arrastar para Favoritos
                     </a>
                 </div>
@@ -41,7 +92,7 @@
                 </div>
             </div>
             <div class="section-divider"></div>
-            <h2 style="font-family: 'CustomFont'; font-size: 2rem; margin-bottom: 2rem;">📱 Tutoriais por Plataforma</h2>
+            <h2 style="font-family: 'CustomFont'; font-size: 2rem; margin-bottom: 2rem;">Tutoriais por Plataforma</h2>
             <div class="platform-options">
                 <div class="platform-card">
                     <div class="platform-icon">
@@ -83,7 +134,7 @@
                         </svg>
                     </div>
                     <h3 class="platform-title">iOS</h3>
-                    <p class="platform-description">Guia especializado para iPhone e iPad. Descubra como usar o KhanTool no iOS com todas as dicas e truques necessários.</p>
+                    <p class="platform-description">Guia especializado para iPhone e iPad. Descubra como usar o KhanTool no iOS com todas as dicas e truques necessárias.</p>
                     <a href="#" class="tutorial-link">
                         <svg class="tutorial-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polygon points="5,3 19,12 5,21"></polygon>
@@ -96,6 +147,7 @@
                 <h3>Precisa de ajuda?</h3>
                 <p>Se tiver dúvidas durante a instalação ou uso do KhanTool, nossa comunidade está pronta para ajudar.</p>
                 <a href="https://discord.gg/PYNQfcDvZy" class="discord-link">
+                    <img src="discord.png" alt="Discord" />
                     Entrar no Discord
                 </a>
             </div>
@@ -107,8 +159,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.fade-in').forEach(el=>el.style.opacity=1);
-            document.addEventListener('selectstart', function(e){if(!e.target.closest('.bookmarklet-code')){e.preventDefault();return false;}});
-            document.addEventListener('dragstart', e=>{e.preventDefault();return false;});
+            document.addEventListener('selectstart', function(e){
+                if(!e.target.closest('.bookmarklet-code')){e.preventDefault();return false;}
+            });
+            document.addEventListener('dragstart', function(e){
+                if(e.target.id === "dragBookmarklet") return;
+                e.preventDefault();
+                return false;
+            });
             document.addEventListener('contextmenu', e=>{e.preventDefault();return false;});
         });
         function copyBookmarklet() {

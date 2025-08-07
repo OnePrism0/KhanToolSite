@@ -23,7 +23,7 @@
 
 @font-face {
     font-family: 'CustomFont';
-    src: url('/KhanToolSite/media/HelveticaNowDisplay-ExtraBold.otf?v=2') format('opentype');
+    src: url('media/HelveticaNowDisplay-ExtraBold.otf?v=2') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -34,7 +34,7 @@ body {
     min-height: 100vh;
     width: 100%;
     line-height: 1.6;
-    background: #000 url('/KhanToolSite/media/background.gif') top center/cover no-repeat;
+    background: #000 url('media/background.gif') top center/cover no-repeat;
     position: relative;
     overflow-x: hidden;
 }
@@ -742,3 +742,4 @@ a[href="https://discord.gg/cbeK2exF5U"] {
 .text-center { text-align: center; }
 .mt-2 { margin-top: 2rem; }
 .mb-2 { margin-bottom: 2rem; }
+

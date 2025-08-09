@@ -8,7 +8,6 @@ let device = {
     apple: /iPhone|iPad|iPod|Macintosh|Mac OS X/i.test(navigator.userAgent)
 };
 
-/* User */
 let user = {
     username: "Username",
     nickname: "Nickname",
@@ -17,14 +16,12 @@ let user = {
 
 let loadedPlugins = [];
 
-/* Elements */
 const unloader = document.createElement('unloader');
 const dropdownMenu = document.createElement('dropDownMenu');
 const watermark = document.createElement('watermark');
 const statsPanel = document.createElement('statsPanel');
 const splashScreen = document.createElement('splashScreen');
 
-/* Globals */
 window.features = {
     questionSpoof: true,
     videoSpoof: true,
@@ -42,23 +39,19 @@ window.featureConfigs = {
     customPfp: ""
 };
 
-/* Security */
 document.addEventListener('contextmenu', (e) => !window.disableSecurity && e.preventDefault());
 document.addEventListener('keydown', (e) => { if (!window.disableSecurity && (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'C', 'J'].includes(e.key)))) { e.preventDefault(); } });
 console.log(Object.defineProperties(new Error, { toString: {value() {(new Error).stack.includes('toString@') && location.reload();}}, message: {get() {location.reload();}}, }));
 
-/* Misc Styles */
 document.head.appendChild(Object.assign(document.createElement("style"),{innerHTML:"@font-face{font-family:'MuseoSans';src:url('https://corsproxy.io/?url=https://r2.e-z.host/4d0a0bea-60f8-44d6-9e74-3032a64a9f32/ynddewua.ttf')format('truetype')}" }));
 document.head.appendChild(Object.assign(document.createElement('style'),{innerHTML:"::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #f1f1f1; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; } ::-webkit-scrollbar-thumb:hover { background: #555; }"}));
 document.querySelector("link[rel~='icon']").href = 'https://r2.e-z.host/4d0a0bea-60f8-44d6-9e74-3032a64a9f32/ukh0rq22.png';
 
-/* Emmiter */
 class EventEmitter{constructor(){this.events={}}on(t,e){"string"==typeof t&&(t=[t]),t.forEach(t=>{this.events[t]||(this.events[t]=[]),this.events[t].push(e)})}off(t,e){"string"==typeof t&&(t=[t]),t.forEach(t=>{this.events[t]&&(this.events[t]=this.events[t].filter(t=>t!==e))})}emit(t,...e){this.events[t]&&this.events[t].forEach(t=>{t(...e)})}once(t,e){"string"==typeof t&&(t=[t]);let s=(...i)=>{e(...i),this.off(t,s)};this.on(t,s)}};
 const plppdo = new EventEmitter();
 
 new MutationObserver((mutationsList) => { for (let mutation of mutationsList) if (mutation.type === 'childList') plppdo.emit('domChanged'); }).observe(document.body, { childList: true, subtree: true });
 
-/* Misc Functions */
 window.debug = function(text) { /* QuickFix */}
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 const playAudio = url => { const audio = new Audio(url); audio.play(); debug(`🔊 Playing audio from ${url}`); };
@@ -72,7 +65,6 @@ async function hideSplashScreen() { splashScreen.style.opacity = '0'; setTimeout
 async function loadScript(url, label) { return fetch(url).then(response => response.text()).then(script => { loadedPlugins.push(label); eval(script); }); }
 async function loadCss(url) { return new Promise((resolve) => { const link = document.createElement('link'); link.rel = 'stylesheet'; link.type = 'text/css'; link.href = url; link.onload = () => resolve(); document.head.appendChild(link); }); }
 
-/* Visual Functions */
 function setupMenu() {
     loadScript(repoPath+'visuals/mainMenu.js', 'mainMenu');
     loadScript(repoPath+'visuals/statusPanel.js', 'statusPanel');
@@ -80,7 +72,6 @@ function setupMenu() {
     if(isDev) loadScript(repoPath+'visuals/devTab.js', 'devTab');
 }
 
-/* Main Functions */ 
 function setupMain(){
     loadScript(repoPath+'functions/questionSpoof.js', 'questionSpoof');
     loadScript(repoPath+'functions/videoSpoof.js', 'videoSpoof');
@@ -92,7 +83,6 @@ function setupMain(){
     loadScript(repoPath+'functions/autoAnswer.js', 'autoAnswer');
 }
 
-/* Inject */
 if (!/^https?:\/\/([a-z0-9-]+\.)?khanacademy\.org/.test(window.location.href)) { alert("❌ KhanTool Failed to Injected!\n\nVocê precisa executar o KhanTool no site do Khan Academy! (https://pt.khanacademy.org/)"); window.location.href = "https://pt.khanacademy.org/"; }
 
 showSplashScreen();
@@ -122,3 +112,4 @@ loadScript('https://cdn.jsdelivr.net/npm/toastify-js', 'toastifyPlugin')
     
     console.clear();
 });
+
